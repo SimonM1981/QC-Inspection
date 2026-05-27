@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/95.6.5892.55';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT AudioPlayback', 'description': 'VT audio playback', 'filename': 'vtaudioplayback.dll','0':{'type': 'application/vt-audio', 'suffixes': 'vta', 'description': 'VT audio playback'} },{'name':'BlockIt', 'description': 'Block it', 'filename': 'blockit.dll','0':{'type': 'application/block-it', 'suffixes': 'block', 'description': 'Block it'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Inspection - Template Setup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .header h1 { font-size: 20px; }
+  .btn-back {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  .setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+  .panel {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .panel-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .measurement-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+  }
+  .measurement-row input {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  .btn-add {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .btn-add:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.3); }
+  .btn-remove {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .checkpoint-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+  }
+  .checkpoint-item:hover { background: #e8eaf6; }
+  .checkpoint-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #667eea;
+  }
+  .checkpoint-item input[type="text"] {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  .color-picker {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .checkpoint-num {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .photo-section {
+    margin-top: 20px;
+  }
+  .photo-upload-area {
+    border: 3px dashed #ddd;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #fafafa;
+  }
+  .photo-upload-area:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+  }
+  .photo-upload-area.dragover {
+    border-color: #667eea;
+    background: #e8eaf6;
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .photo-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: move;
+  }
+  .photo-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  .photo-card .photo-actions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 5px;
+  }
+  .photo-card .photo-actions button {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-annotate { background: #ffd700; }
+  .btn-delete-photo { background: #ff6b6b; color: white; }
+
+  .annotation-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .annotation-canvas.active { display: flex; }
+  .canvas-container {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .canvas-toolbar {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #1a1a2e;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .canvas-toolbar button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+  }
+  .btn-tool-select { background: #667eea; }
+  .btn-tool-arrow { background: #e94560; }
+  .btn-tool-text { background: #4ecdc4; }
+  .btn-tool-rect { background: #ffd700; color: #333; }
+  .btn-save-anno { background: #43e97b; }
+  .btn-close-anno { background: #ff6b6b; }
+
+  .btn-save-template {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+  }
+  .btn-save-template:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(67,233,123,0.3);
+  }
+
+  .template-list {
+    margin-top: 20px;
+  }
+  .template-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 4px solid #667eea;
+  }
+  .template-item:hover { background: #e8eaf6; }
+  .template-item.active { background: #e8eaf6; border-left-color: #e94560; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 768px) {
+    .setup-grid { grid-template-columns: 1fr; }
+    .measurement-row { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div style="display:flex;align-items:center;gap:15px;">
+    <a href="dashboard.html" class="btn-back">&#8592; Back</a>
+    <h1>&#9881;&#65039; Template Setup</h1>
+  </div>
+  <div style="font-size:14px;opacity:0.8;">Configure inspection templates for each part</div>
+</div>
+
+<div class="container">
+  <div class="setup-grid">
+    <!-- Left Panel: Part Info & Measurements -->
+    <div>
+      <div class="panel">
+        <div class="panel-title">&#128203; Part Information</div>
+        <div class="form-group">
+          <label>Part Number *</label>
+          <input type="text" id="partNo" placeholder="e.g. 45535-09250" required>
+        </div>
+        <div class="form-group">
+          <label>Description *</label>
+          <input type="text" id="description" placeholder="e.g. STEERING RACK BOOT" required>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="category">
+            <option value="">Select Category</option>
+            <option value="Steering">Steering System</option>
+            <option value="Suspension">Suspension</option>
+            <option value="Engine">Engine Parts</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Rubber">Rubber Parts</option>
+            <option value="Metal">Metal Parts</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ISO Document Number</label>
+          <input type="text" id="isoDocNo" placeholder="e.g. ISO-QC-001">
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:25px;">
+        <div class="panel-title">&#128207; Measurements Setup</div>
+        <div id="measurementsList"></div>
+        <button class="btn-add" onclick="addMeasurement()">+ Add Measurement</button>
+
+        <div style="margin-top:20px; padding:15px; background:#fff3e0; border-radius:10px; font-size:13px; color:#e65100;">
+          <strong>&#128161; Tip:</strong> Spec format examples:<br>
+          &#8226; "15.50 +/- 0.5" (symmetric tolerance)<br>
+          &#8226; "+0.5/-0.3" (asymmetric tolerance)<br>
+          &#8226; "M10x1.25mm" (text match)<br>
+          &#8226; "75+/-5" (hardness)
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Check Points & Photos -->
+    <div>
+      <div class="panel">
+        <div class="panel-title">&#9989; Check Points Setup</div>
+        <div style="margin-bottom:15px; font-size:13px; color:#666;">
+          Select check points that apply to this part. Click color to change.
+        </div>
+        <div id="checkPointsList"></div>
+        <button class="btn-add" onclick="addCheckPoint()" style="margin-top:10px;">+ Add Custom Check Point</button>
+      </div>
+
+      <div class="panel" style="margin-top:25px;">
+        <div class="panel-title">&#128248; Reference Photos & Drawings</div>
+        <div class="photo-upload-area" id="photoUploadArea" onclick="document.getElementById('photoInput').click()">
+          <div style="font-size:40px; margin-bottom:10px;">&#128248;</div>
+          <div style="font-weight:600; color:#666;">Click or Drag photos here</div>
+          <div style="font-size:13px; color:#999; margin-top:5px;">Up to 6 photos. JPG, PNG supported.</div>
+        </div>
+        <input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="handlePhotoUpload(event)">
+        <div class="photo-grid" id="photoGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-save-template" onclick="saveTemplate()">&#128190; Save Template</button>
+
+  <div class="panel" style="margin-top:30px;">
+    <div class="panel-title">&#128193; Saved Templates</div>
+    <div class="template-list" id="templateList">
+      <div style="text-align:center; color:#999; padding:20px;">Loading templates...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Annotation Canvas Modal -->
+<div class="annotation-canvas" id="annotationModal">
+  <div class="canvas-toolbar">
+    <button class="btn-tool-select" onclick="setTool('select')">Select</button>
+    <button class="btn-tool-arrow" onclick="setTool('arrow')">Arrow</button>
+    <button class="btn-tool-text" onclick="setTool('text')">Text</button>
+    <button class="btn-tool-rect" onclick="setTool('rect')">Rectangle</button>
+    <button class="btn-save-anno" onclick="saveAnnotation()">Save</button>
+    <button class="btn-close-anno" onclick="closeAnnotation()">Close</button>
+  </div>
+  <div class="canvas-container">
+    <canvas id="annoCanvas" style="cursor:crosshair;"></canvas>
+  </div>
+</div>
+
+<script>
+const API_URL = localStorage.getItem('gasApiUrl') || '';
+let currentUser = null;
+let measurements = [];
+let checkPoints = [];
+let photos = [];
+let currentAnnoPhoto = null;
+let canvas, ctx, currentTool = 'select';
+let annotations = [];
+
+function init() {
+  const userStr = localStorage.getItem('qcUser');
+  if (!userStr) {
+    window.location.href = 'login.html';
+    return;
+  }
+  if (!API_URL) {
+    alert('Please login again to configure API URL');
+    window.location.href = 'login.html';
+    return;
+  }
+  currentUser = JSON.parse(userStr);
+  if (currentUser.role !== 'Manager') {
+    alert('Access denied. Manager only.');
+    window.location.href = 'dashboard.html';
+    return;
+  }
+
+  loadDefaultCheckPoints();
+  loadTemplates();
+  setupDragDrop();
+}
+
+function loadDefaultCheckPoints() {
+  const defaults = [
+    {id: 1, nameTh: '&#3626;&#3609;&#3636;&#3617;', nameEn: 'Rust', color: '#FF4444', selected: false},
+    {id: 2, nameTh: '&#3618;&#3634;&#3591;&#3586;&#3634;&#3604;', nameEn: 'Torn Rubber', color: '#FF8800', selected: false},
+    {id: 3, nameTh: '&#3619;&#3629;&#3618;&#3586;&#3637;&#3604;&#3586;&#3656;&#3623;&#3609;', nameEn: 'Scratch', color: '#FFAA00', selected: false},
+    {id: 4, nameTh: '&#3588;&#3623;&#3634;&#3617;&#3649;&#3609;&#3656;&#3609;', nameEn: 'Bonding', color: '#44AA44', selected: false},
+    {id: 5, nameTh: '&#3611;&#3619;&#3632;&#3585;&#3629;&#3610; Jig', nameEn: 'Jig Assembly', color: '#4488FF', selected: false},
+    {id: 6, nameTh: '&#3588;&#3623;&#3634;&#3617;&#3649;&#3586;&#3655;&#3591;&#3629;&#3633;&#3604;&#3586;&#3629;&#3591;&#3618;&#3634;&#3591;', nameEn: 'Rubber Compression', color: '#8844FF', selected: false},
+    {id: 7, nameTh: '&#3585;&#3634;&#3619;&#3627;&#3617;&#3640;&#3609;&#3586;&#3629;&#3591;&#3621;&#3641;&#3585;&#3611;&#3639;&#3609;', nameEn: 'Bearing Rotate', color: '#FF44FF', selected: false},
+    {id: 8, nameTh: '&#3585;&#3634;&#3619;&#3648;&#3594;&#3639;&#3656;&#3629;&#3617;', nameEn: 'Welding', color: '#44FFFF', selected: false},
+    {id: 9, nameTh: '&#3648;&#3610;&#3637;&#3657;&#3618;&#3623;', nameEn: 'Deform', color: '#FF6644', selected: false},
+    {id: 10, nameTh: '&#3611;&#3619;&#3632;&#3585;&#3629;&#3610;&#3618;&#3634;&#3591;&#3611;&#3636;&#3604; Bush', nameEn: 'Rubber Close Bush', color: '#66FF44', selected: false},
+    {id: 11, nameTh: '&#3607;&#3604;&#3626;&#3629;&#3610;&#3627;&#3633;&#3623;&#3591;&#3634;&#3609;', nameEn: 'Head Bonding Test', color: '#4466FF', selected: false},
+    {id: 12, nameTh: '&#3623;&#3633;&#3604;&#3588;&#3623;&#3634;&#3617;&#3626;&#3641;&#3591; A-B', nameEn: 'Measure Height A-B', color: '#FF4466', selected: false},
+    {id: 13, nameTh: '&#3627;&#3617;&#3640;&#3609;&#3626;&#3621;&#3633;&#3585;&#3648;&#3585;&#3621;&#3637;&#3618;&#3623;', nameEn: 'Insert Bolt Test', color: '#44FF88', selected: false},
+    {id: 14, nameTh: '&#3651;&#3626;&#3656;&#3609;&#3655;&#3629;&#3605;&#3651;&#3627;&#3657;&#3649;&#3609;&#3656;&#3609;', nameEn: 'Add Nut Tightening', color: '#8844AA', selected: false},
+    {id: 15, nameTh: '&#3605;&#3619;&#3623;&#3592;&#3626;&#3629;&#3610;&#3594;&#3656;&#3629;&#3591;&#3623;&#3656;&#3634;&#3591;', nameEn: 'Check Space', color: '#AA8844', selected: false},
+    {id: 16, nameTh: '&#3652;&#3595;&#3605;&#3660;&#3609;&#3655;&#3629;&#3605;&#3649;&#3621;&#3632;&#3648;&#3585;&#3621;&#3637;&#3618;&#3623;', nameEn: 'Nut/Bolt Size', color: '#44AA88', selected: false},
+    {id: 17, nameTh: '&#3626;&#3637;&#3609;&#3655;&#3629;&#3605;', nameEn: 'Nut Color', color: '#AA4488', selected: false}
+  ];
+  checkPoints = defaults;
+  renderCheckPoints();
+}
+
+function renderCheckPoints() {
+  const container = document.getElementById('checkPointsList');
+  container.innerHTML = checkPoints.map((cp, idx) => `
+    <div class="checkpoint-item">
+      <input type="checkbox" ${cp.selected ? 'checked' : ''} onchange="toggleCheckPoint(${idx})">
+      <div class="checkpoint-num">${cp.id}</div>
+      <input type="text" value="${cp.nameEn}" placeholder="English name" onchange="updateCheckPoint(${idx}, 'nameEn', this.value)">
+      <input type="text" value="${cp.nameTh}" placeholder="Thai name" onchange="updateCheckPoint(${idx}, 'nameTh', this.value)">
+      <input type="color" class="color-picker" value="${cp.color}" onchange="updateCheckPoint(${idx}, 'color', this.value)">
+      <button class="btn-remove" onclick="removeCheckPoint(${idx})">&#215;</button>
+    </div>
+  `).join('');
+}
+
+function toggleCheckPoint(idx) {
+  checkPoints[idx].selected = !checkPoints[idx].selected;
+}
+
+function updateCheckPoint(idx, field, value) {
+  checkPoints[idx][field] = value;
+}
+
+function addCheckPoint() {
+  const newId = checkPoints.length > 0 ? Math.max(...checkPoints.map(c => c.id)) + 1 : 1;
+  checkPoints.push({
+    id: newId,
+    nameTh: '',
+    nameEn: '',
+    color: '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'),
+    selected: true
+  });
+  renderCheckPoints();
+}
+
+function removeCheckPoint(idx) {
+  checkPoints.splice(idx, 1);
+  renderCheckPoints();
+}
+
+function addMeasurement() {
+  measurements.push({
+    name: '',
+    spec: '',
+    tool: '',
+    unit: 'mm'
+  });
+  renderMeasurements();
+}
+
+function renderMeasurements() {
+  const container = document.getElementById('measurementsList');
+  if (measurements.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">No measurements added yet</div>';
+    return;
+  }
+  container.innerHTML = measurements.map((m, idx) => `
+    <div class="measurement-row">
+      <input type="text" placeholder="Name (e.g. Inner Diameter A)" value="${m.name}" onchange="updateMeasurement(${idx}, 'name', this.value)">
+      <input type="text" placeholder="Spec (e.g. 15.50 +/- 0.5)" value="${m.spec}" onchange="updateMeasurement(${idx}, 'spec', this.value)">
+      <input type="text" placeholder="Tool" value="${m.tool}" onchange="updateMeasurement(${idx}, 'tool', this.value)">
+      <select onchange="updateMeasurement(${idx}, 'unit', this.value)">
+        <option value="mm" ${m.unit === 'mm' ? 'selected' : ''}>mm</option>
+        <option value="cm" ${m.unit === 'cm' ? 'selected' : ''}>cm</option>
+        <option value="inch" ${m.unit === 'inch' ? 'selected' : ''}>inch</option>
+        <option value="text" ${m.unit === 'text' ? 'selected' : ''}>text</option>
+      </select>
+      <button class="btn-remove" onclick="removeMeasurement(${idx})">&#215;</button>
+    </div>
+  `).join('');
+}
+
+function updateMeasurement(idx, field, value) {
+  measurements[idx][field] = value;
+}
+
+function removeMeasurement(idx) {
+  measurements.splice(idx, 1);
+  renderMeasurements();
+}
+
+function setupDragDrop() {
+  const area = document.getElementById('photoUploadArea');
+  area.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    area.classList.add('dragover');
+  });
+  area.addEventListener('dragleave', () => {
+    area.classList.remove('dragover');
+  });
+  area.addEventListener('drop', (e) => {
+    e.preventDefault();
+    area.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+  });
+}
+
+function handlePhotoUpload(event) {
+  handleFiles(event.target.files);
+}
+
+function handleFiles(files) {
+  if (photos.length + files.length > 6) {
+    alert('Maximum 6 photos allowed');
+    return;
+  }
+  Array.from(files).forEach(file => {
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        photos.push({
+          id: Date.now() + Math.random(),
+          data: e.target.result,
+          name: file.name,
+          annotated: false
+        });
+        renderPhotos();
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+function renderPhotos() {
+  const grid = document.getElementById('photoGrid');
+  grid.innerHTML = photos.map((p, idx) => `
+    <div class="photo-card" draggable="true" ondragstart="dragPhoto(event, ${idx})" ondrop="dropPhoto(event, ${idx})" ondragover="allowDrop(event)">
+      <img src="${p.data}" alt="${p.name}">
+      <div class="photo-actions">
+        <button class="btn-annotate" onclick="openAnnotation(${idx})" title="Annotate">&#9998;</button>
+        <button class="btn-delete-photo" onclick="deletePhoto(${idx})" title="Delete">&#215;</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function dragPhoto(event, idx) {
+  event.dataTransfer.setData('text/plain', idx);
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function dropPhoto(event, idx) {
+  event.preventDefault();
+  const fromIdx = parseInt(event.dataTransfer.getData('text/plain'));
+  const temp = photos[fromIdx];
+  photos[fromIdx] = photos[idx];
+  photos[idx] = temp;
+  renderPhotos();
+}
+
+function deletePhoto(idx) {
+  photos.splice(idx, 1);
+  renderPhotos();
+}
+
+function openAnnotation(idx) {
+  currentAnnoPhoto = idx;
+  const modal = document.getElementById('annotationModal');
+  const canvasEl = document.getElementById('annoCanvas');
+  const img = new Image();
+  img.onload = () => {
+    canvasEl.width = Math.min(img.width, window.innerWidth - 100);
+    canvasEl.height = (canvasEl.width / img.width) * img.height;
+    ctx = canvasEl.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvasEl.width, canvasEl.height);
+    modal.classList.add('active');
+  };
+  img.src = photos[idx].data;
+}
+
+function closeAnnotation() {
+  document.getElementById('annotationModal').classList.remove('active');
+  currentAnnoPhoto = null;
+  annotations = [];
+}
+
+function setTool(tool) {
+  currentTool = tool;
+  document.getElementById('annoCanvas').style.cursor = tool === 'text' ? 'text' : 'crosshair';
+}
+
+let isDrawing = false;
+let startX, startY;
+
+document.getElementById('annoCanvas').addEventListener('mousedown', (e) => {
+  if (currentTool === 'select') return;
+  isDrawing = true;
+  const rect = e.target.getBoundingClientRect();
+  startX = e.clientX - rect.left;
+  startY = e.clientY - rect.top;
+});
+
+document.getElementById('annoCanvas').addEventListener('mouseup', (e) => {
+  if (!isDrawing) return;
+  isDrawing = false;
+  const rect = e.target.getBoundingClientRect();
+  const endX = e.clientX - rect.left;
+  const endY = e.clientY - rect.top;
+
+  if (currentTool === 'arrow') {
+    drawArrow(startX, startY, endX, endY);
+  } else if (currentTool === 'rect') {
+    drawRect(startX, startY, endX, endY);
+  } else if (currentTool === 'text') {
+    const text = prompt('Enter text:');
+    if (text) drawText(startX, startY, text);
+  }
+});
+
+function drawArrow(x1, y1, x2, y2) {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.strokeStyle = '#e94560';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const headLen = 15;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI/6), y2 - headLen * Math.sin(angle - Math.PI/6));
+  ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI/6), y2 - headLen * Math.sin(angle + Math.PI/6));
+  ctx.closePath();
+  ctx.fillStyle = '#e94560';
+  ctx.fill();
+}
+
+function drawRect(x1, y1, x2, y2) {
+  ctx.strokeStyle = '#ffd700';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+}
+
+function drawText(x, y, text) {
+  ctx.font = 'bold 16px Arial';
+  ctx.fillStyle = '#4ecdc4';
+  ctx.fillText(text, x, y);
+}
+
+function saveAnnotation() {
+  const canvasEl = document.getElementById('annoCanvas');
+  photos[currentAnnoPhoto].data = canvasEl.toDataURL('image/png');
+  photos[currentAnnoPhoto].annotated = true;
+  renderPhotos();
+  closeAnnotation();
+}
+
+async function saveTemplate() {
+  const partNo = document.getElementById('partNo').value.trim();
+  const description = document.getElementById('description').value.trim();
+
+  if (!partNo || !description) {
+    alert('Part Number and Description are required');
+    return;
+  }
+
+  if (measurements.length === 0) {
+    alert('Please add at least one measurement');
+    return;
+  }
+
+  const selectedCPs = checkPoints.filter(cp => cp.selected);
+  if (selectedCPs.length === 0) {
+    alert('Please select at least one check point');
+    return;
+  }
+
+  // Upload photos to Drive first
+  const uploadedPhotos = [];
+  for (let photo of photos) {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          action: 'uploadPhoto',
+          data: {
+            imageData: photo.data,
+            filename: photo.name,
+            mimeType: 'image/jpeg'
+          }
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        uploadedPhotos.push({
+          fileId: result.fileId,
+          fileUrl: result.fileUrl,
+          name: photo.name
+        });
+      }
+    } catch(e) {
+      console.error('Photo upload error:', e);
+    }
+  }
+
+  const templateData = {
+    partNo: partNo,
+    description: description,
+    category: document.getElementById('category').value,
+    isoDocNo: document.getElementById('isoDocNo').value,
+    measurements: measurements,
+    checkPoints: selectedCPs,
+    photos: uploadedPhotos,
+    templateId: ''
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'saveTemplate',
+        data: templateData
+      })
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      alert('Template saved successfully!');
+      loadTemplates();
+      clearForm();
+    } else {
+      alert('Error: ' + (result.error || 'Failed to save'));
+    }
+  } catch(e) {
+    alert('Error saving template: ' + e.message);
+  }
+}
+
+function clearForm() {
+  document.getElementById('partNo').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('category').value = '';
+  document.getElementById('isoDocNo').value = '';
+  measurements = [];
+  renderMeasurements();
+  photos = [];
+  renderPhotos();
+  checkPoints.forEach(cp => cp.selected = false);
+  renderCheckPoints();
+}
+
+async function loadTemplates() {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getTemplates',
+        data: {}
+      })
+    });
+    const result = await response.json();
+
+    const container = document.getElementById('templateList');
+    if (result.success && result.parts && result.parts.length > 0) {
+      container.innerHTML = result.parts.map(p => `
+        <div class="template-item" onclick="loadTemplate('${p.partNo}')">
+          <div>
+            <div style="font-weight:600; color:#1a1a2e;">${p.partNo}</div>
+            <div style="font-size:13px; color:#666;">${p.description}</div>
+            <div style="font-size:12px; color:#999; margin-top:4px;">
+              ${p.measurements ? p.measurements.length : 0} measurements | 
+              ${p.checkPoints ? p.checkPoints.length : 0} check points
+            </div>
+          </div>
+          <div style="font-size:12px; color:#667eea; font-weight:600;">${p.category || 'Uncategorized'}</div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<div style="text-align:center; color:#999; padding:20px;">No templates saved yet</div>';
+    }
+  } catch(e) {
+    console.error('Load templates error:', e);
+  }
+}
+
+async function loadTemplate(partNo) {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getTemplateByPart',
+        data: {partNo: partNo}
+      })
+    });
+    const result = await response.json();
+
+    if (result.success && result.template) {
+      const t = result.template;
+      document.getElementById('partNo').value = t.partNo;
+      document.getElementById('description').value = t.description;
+      document.getElementById('category').value = t.category || '';
+      document.getElementById('isoDocNo').value = t.isoDocNo || '';
+
+      measurements = t.measurements || [];
+      renderMeasurements();
+
+      if (t.checkPoints) {
+        checkPoints.forEach(cp => {
+          const found = t.checkPoints.find(tcp => tcp.id === cp.id);
+          cp.selected = !!found;
+          if (found) {
+            cp.nameEn = found.nameEn;
+            cp.nameTh = found.nameTh;
+            cp.color = found.color;
+          }
+        });
+        renderCheckPoints();
+      }
+
+      if (t.photos) {
+        photos = t.photos.map(p => ({
+          id: Date.now() + Math.random(),
+          data: p.fileUrl,
+          name: p.name,
+          annotated: false
+        }));
+        renderPhotos();
+      }
+    }
+  } catch(e) {
+    console.error('Load template error:', e);
+  }
+}
+
+init();
+</script>
+</body>
+</html>

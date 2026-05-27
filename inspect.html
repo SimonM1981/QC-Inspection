@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/95.6.5892.55';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT AudioPlayback', 'description': 'VT audio playback', 'filename': 'vtaudioplayback.dll','0':{'type': 'application/vt-audio', 'suffixes': 'vta', 'description': 'VT audio playback'} },{'name':'BlockIt', 'description': 'Block it', 'filename': 'blockit.dll','0':{'type': 'application/block-it', 'suffixes': 'block', 'description': 'Block it'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Inspection - Perform Inspection</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .header h1 { font-size: 20px; }
+  .btn-back {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  .job-selector {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+  }
+  .job-selector h2 {
+    font-size: 18px;
+    color: #1a1a2e;
+    margin-bottom: 15px;
+  }
+  .job-select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .job-info-panel {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .info-item {
+    background: rgba(255,255,255,0.15);
+    padding: 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+  .info-label {
+    font-size: 12px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+  }
+  .info-value {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .panel {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+  }
+  .panel-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .measurement-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .measurement-table th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+  }
+  .measurement-table th:first-child {
+    border-radius: 10px 0 0 0;
+  }
+  .measurement-table th:last-child {
+    border-radius: 0 10px 0 0;
+  }
+  .measurement-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  .measurement-table tr:hover { background: #f8f9fa; }
+  .sample-num {
+    background: #667eea;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .measure-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .measure-input:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  .measure-input.pass {
+    border-color: #4caf50;
+    background: #e8f5e9;
+  }
+  .measure-input.fail {
+    border-color: #f44336;
+    background: #ffebee;
+  }
+  .spec-info {
+    font-size: 11px;
+    color: #666;
+    margin-top: 4px;
+  }
+  .tool-info {
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+  }
+
+  .checkpoint-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+  }
+  .checkpoint-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 4px solid;
+    transition: all 0.3s;
+  }
+  .checkpoint-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+  .checkpoint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .checkpoint-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1a1a2e;
+  }
+  .checkpoint-name-th {
+    font-size: 13px;
+    color: #666;
+    margin-top: 3px;
+  }
+  .checkpoint-num-badge {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .checkpoint-result {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .result-btn {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+    text-align: center;
+    background: white;
+  }
+  .result-btn:hover { border-color: #667eea; }
+  .result-btn.ok.active {
+    background: #e8f5e9;
+    border-color: #4caf50;
+    color: #2e7d32;
+  }
+  .result-btn.ng.active {
+    background: #ffebee;
+    border-color: #f44336;
+    color: #c62828;
+  }
+  .result-btn.na.active {
+    background: #f5f5f5;
+    border-color: #999;
+    color: #666;
+  }
+
+  .photo-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  .photo-upload-card {
+    border: 3px dashed #ddd;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #fafafa;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-upload-card:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+  }
+  .photo-upload-card.has-photo {
+    border-style: solid;
+    border-color: #4caf50;
+    padding: 0;
+    overflow: hidden;
+  }
+  .photo-upload-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .photo-upload-card .photo-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .btn-section {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+  }
+  .btn-save {
+    flex: 1;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-save:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+  .btn-submit {
+    flex: 1;
+    padding: 16px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(67,233,123,0.3); }
+
+  .remarks-area {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+  }
+
+  .progress-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    height: 8px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s;
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 768px) {
+    .container { padding: 15px; }
+    .measurement-table { font-size: 12px; }
+    .measure-input { padding: 6px; font-size: 12px; }
+    .checkpoint-section { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div style="display:flex;align-items:center;gap:15px;">
+    <a href="dashboard.html" class="btn-back">&#8592; Back</a>
+    <h1>&#128269; Perform Inspection</h1>
+  </div>
+  <div style="font-size:14px;opacity:0.8;" id="staffName">Staff</div>
+</div>
+
+<div class="container">
+  <!-- Job Selector -->
+  <div class="job-selector">
+    <h2>Select Job to Inspect</h2>
+    <select class="job-select" id="jobSelect" onchange="loadJobDetails()">
+      <option value="">-- Select Pending Job --</option>
+    </select>
+    <div class="progress-bar" style="margin-top:15px;">
+      <div class="progress-fill" id="progressBar" style="width:0%"></div>
+    </div>
+    <div style="text-align:right; font-size:12px; color:#999; margin-top:5px;" id="progressText">0% Complete</div>
+  </div>
+
+  <!-- Job Info -->
+  <div class="job-info-panel hidden" id="jobInfoPanel">
+    <div class="info-item">
+      <div class="info-label">Part Number</div>
+      <div class="info-value" id="infoPartNo">-</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Description</div>
+      <div class="info-value" id="infoDescription">-</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Supplier</div>
+      <div class="info-value" id="infoSupplier">-</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Quantity</div>
+      <div class="info-value" id="infoQty">-</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Sample Qty</div>
+      <div class="info-value" id="infoSampleQty">-</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">ISO Doc No</div>
+      <div class="info-value" id="infoIsoDoc">-</div>
+    </div>
+  </div>
+
+  <!-- Measurements Section -->
+  <div class="panel hidden" id="measurementsPanel">
+    <div class="panel-title">&#128207; Measurements</div>
+    <div style="overflow-x:auto;">
+      <table class="measurement-table" id="measurementTable">
+        <thead id="measurementHead"></thead>
+        <tbody id="measurementBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Check Points Section -->
+  <div class="panel hidden" id="checkpointsPanel">
+    <div class="panel-title">&#9989; Check Points</div>
+    <div class="checkpoint-section" id="checkpointSection"></div>
+  </div>
+
+  <!-- Photos Section -->
+  <div class="panel hidden" id="photosPanel">
+    <div class="panel-title">&#128248; Inspection Photos (Max 6)</div>
+    <div class="photo-section" id="photoSection">
+      <div class="photo-upload-card" onclick="takePhoto(0)">
+        <div style="font-size:30px;margin-bottom:8px;">&#128248;</div>
+        <div style="font-weight:600;color:#666;font-size:13px;">Photo 1</div>
+        <div style="font-size:11px;color:#999;">Tap to capture</div>
+      </div>
+      <div class="photo-upload-card" onclick="takePhoto(1)">
+        <div style="font-size:30px;margin-bottom:8px;">&#128248;</div>
+        <div style="font-weight:600;color:#666;font-size:13px;">Photo 2</div>
+      </div>
+      <div class="photo-upload-card" onclick="takePhoto(2)">
+        <div style="font-size:30px;margin-bottom:8px;">&#128248;</div>
+        <div style="font-weight:600;color:#666;font-size:13px;">Photo 3</div>
+      </div>
+      <div class="photo-upload-card" onclick="takePhoto(3)">
+        <div style="font-size:30px;margin-bottom:8px;">&#128248;</div>
+        <div style="font-weight:600;color:#666;font-size:13px;">Photo 4</div>
+      </div>
+      <div class="photo-upload-card" onclick="takePhoto(4)">
+        <div style="font-size:30px;margin-bottom:8px;">&#128248;</div>
+        <div style="font-weight:600;color:#666;font-size:13px;">Photo 5</div>
+      </div>
+      <div class="photo-upload-card" onclick="takePhoto(5)">
+        <div style="font-size:30px;margin-bottom:8px;">&#128248;</div>
+        <div style="font-weight:600;color:#666;font-size:13px;">Photo 6</div>
+      </div>
+    </div>
+    <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="handlePhotoCapture(event)">
+  </div>
+
+  <!-- Remarks -->
+  <div class="panel hidden" id="remarksPanel">
+    <div class="panel-title">&#128221; Remarks</div>
+    <textarea class="remarks-area" id="remarks" placeholder="Enter any remarks or observations..."></textarea>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="btn-section hidden" id="actionButtons">
+    <button class="btn-save" onclick="saveInspection(false)">&#128190; Save Draft</button>
+    <button class="btn-submit" onclick="saveInspection(true)">&#10003; Submit for Approval</button>
+  </div>
+</div>
+
+<script>
+const API_URL = localStorage.getItem('gasApiUrl') || '';
+let currentUser = null;
+let pendingJobs = [];
+let currentJob = null;
+let inspectionData = {
+  measurements: {},
+  checkPoints: {},
+  photos: [],
+  remarks: ''
+};
+let currentPhotoIndex = 0;
+
+function init() {
+  const userStr = localStorage.getItem('qcUser');
+  if (!userStr) {
+    window.location.href = 'login.html';
+    return;
+  }
+  if (!API_URL) {
+    alert('Please login again to configure API URL');
+    window.location.href = 'login.html';
+    return;
+  }
+  currentUser = JSON.parse(userStr);
+  document.getElementById('staffName').textContent = currentUser.name;
+
+  if (currentUser.role !== 'Staff' && currentUser.role !== 'QC Chief') {
+    alert('Access denied. Staff or QC Chief only.');
+    window.location.href = 'dashboard.html';
+    return;
+  }
+
+  loadPendingJobs();
+}
+
+async function loadPendingJobs() {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getPendingJobs',
+        data: {}
+      })
+    });
+    const result = await response.json();
+
+    if (result.success && result.jobs) {
+      pendingJobs = result.jobs;
+      const select = document.getElementById('jobSelect');
+      select.innerHTML = '<option value="">-- Select Pending Job --</option>' + 
+        pendingJobs.map(j => `<option value="${j.jobId}">${j.jobId} | ${j.partNo} | ${j.supplier} | Qty:${j.qty}</option>`).join('');
+    }
+  } catch(e) {
+    console.error('Load jobs error:', e);
+  }
+}
+
+async function loadJobDetails() {
+  const jobId = document.getElementById('jobSelect').value;
+  if (!jobId) {
+    hideAllPanels();
+    return;
+  }
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getJobDetails',
+        data: {jobId: jobId}
+      })
+    });
+    const result = await response.json();
+
+    if (result.success && result.job) {
+      currentJob = result.job;
+      displayJobInfo();
+      buildMeasurementTable();
+      buildCheckPoints();
+      showAllPanels();
+
+      if (result.job.inspectionData) {
+        loadExistingData(result.job.inspectionData);
+      }
+    }
+  } catch(e) {
+    console.error('Load job details error:', e);
+  }
+}
+
+function displayJobInfo() {
+  document.getElementById('jobInfoPanel').classList.remove('hidden');
+  document.getElementById('infoPartNo').textContent = currentJob.partNo;
+  document.getElementById('infoDescription').textContent = currentJob.description || '-';
+  document.getElementById('infoSupplier').textContent = currentJob.supplier || '-';
+  document.getElementById('infoQty').textContent = currentJob.qty || '-';
+  document.getElementById('infoSampleQty').textContent = currentJob.sampleQty || '10';
+  document.getElementById('infoIsoDoc').textContent = currentJob.isoDocNo || 'N/A';
+}
+
+function buildMeasurementTable() {
+  const template = currentJob.template;
+  if (!template || !template.measurements || template.measurements.length === 0) {
+    document.getElementById('measurementsPanel').classList.add('hidden');
+    return;
+  }
+
+  const measurements = template.measurements;
+  const sampleQty = parseInt(currentJob.sampleQty) || 10;
+
+  let headHTML = '<tr><th>Sample</th>';
+  measurements.forEach(m => {
+    headHTML += `<th>${m.name}<br><span style="font-size:11px;font-weight:400;">${m.spec}</span><br><span class="tool-info">${m.tool || ''}</span></th>`;
+  });
+  headHTML += '</tr>';
+  document.getElementById('measurementHead').innerHTML = headHTML;
+
+  let bodyHTML = '';
+  for (let s = 1; s <= sampleQty; s++) {
+    bodyHTML += '<tr><td><span class="sample-num">' + s + '</span></td>';
+    measurements.forEach((m, idx) => {
+      const key = `S${s}_M${idx}`;
+      bodyHTML += `<td>
+        <input type="text" class="measure-input" id="${key}" 
+               data-sample="${s}" data-measurement="${idx}" data-spec="${m.spec}" 
+               oninput="validateMeasurement(this)" onblur="validateMeasurement(this)">
+        <div class="spec-info">Spec: ${m.spec}</div>
+      </td>`;
+    });
+    bodyHTML += '</tr>';
+  }
+  document.getElementById('measurementBody').innerHTML = bodyHTML;
+  document.getElementById('measurementsPanel').classList.remove('hidden');
+}
+
+function validateMeasurement(input) {
+  const value = input.value.trim();
+  const spec = input.dataset.spec;
+
+  if (!value) {
+    input.classList.remove('pass', 'fail');
+    updateProgress();
+    return;
+  }
+
+  const isPass = checkSpec(value, spec);
+  input.classList.remove('pass', 'fail');
+  input.classList.add(isPass ? 'pass' : 'fail');
+  updateProgress();
+}
+
+function checkSpec(value, specStr) {
+  if (!specStr || !value) return true;
+
+  // Text match (e.g., "M10x1.25mm")
+  if (specStr.indexOf('mm') !== -1 && isNaN(parseFloat(specStr))) {
+    return value.toUpperCase() === specStr.toUpperCase();
+  }
+
+  const numVal = parseFloat(value);
+  if (isNaN(numVal)) return true;
+
+  // Pattern: "15.50 +/- 0.5" or "15.50 +/- 0.5"
+  let match = specStr.match(/([\d.]+)\s*[+/-]+\s*([\d.]+)/);
+  if (match) {
+    const nominal = parseFloat(match[1]);
+    const tolerance = parseFloat(match[2]);
+    return numVal >= (nominal - tolerance) && numVal <= (nominal + tolerance);
+  }
+
+  return true;
+}
+
+function buildCheckPoints() {
+  const template = currentJob.template;
+  if (!template || !template.checkPoints || template.checkPoints.length === 0) {
+    document.getElementById('checkpointsPanel').classList.add('hidden');
+    return;
+  }
+
+  const cps = template.checkPoints;
+  const container = document.getElementById('checkpointSection');
+
+  container.innerHTML = cps.map((cp, idx) => `
+    <div class="checkpoint-card" style="border-left-color: ${cp.color}">
+      <div class="checkpoint-header">
+        <div>
+          <div class="checkpoint-name">${cp.nameEn}</div>
+          <div class="checkpoint-name-th">${cp.nameTh}</div>
+        </div>
+        <div class="checkpoint-num-badge" style="background: ${cp.color}">${cp.id}</div>
+      </div>
+      <div class="checkpoint-result">
+        <div class="result-btn ok" id="cp_${cp.id}_ok" onclick="setCheckPointResult(${cp.id}, 'OK')">&#10003; OK</div>
+        <div class="result-btn ng" id="cp_${cp.id}_ng" onclick="setCheckPointResult(${cp.id}, 'NG')">&#10007; NG</div>
+        <div class="result-btn na" id="cp_${cp.id}_na" onclick="setCheckPointResult(${cp.id}, 'N/A')">- N/A</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('checkpointsPanel').classList.remove('hidden');
+}
+
+function setCheckPointResult(cpId, result) {
+  ['ok', 'ng', 'na'].forEach(r => {
+    document.getElementById(`cp_${cpId}_${r}`).classList.remove('active');
+  });
+  document.getElementById(`cp_${cpId}_${result.toLowerCase()}`).classList.add('active');
+
+  inspectionData.checkPoints[cpId] = result;
+  updateProgress();
+}
+
+function showAllPanels() {
+  document.getElementById('photosPanel').classList.remove('hidden');
+  document.getElementById('remarksPanel').classList.remove('hidden');
+  document.getElementById('actionButtons').classList.remove('hidden');
+}
+
+function hideAllPanels() {
+  document.getElementById('jobInfoPanel').classList.add('hidden');
+  document.getElementById('measurementsPanel').classList.add('hidden');
+  document.getElementById('checkpointsPanel').classList.add('hidden');
+  document.getElementById('photosPanel').classList.add('hidden');
+  document.getElementById('remarksPanel').classList.add('hidden');
+  document.getElementById('actionButtons').classList.add('hidden');
+}
+
+function updateProgress() {
+  const template = currentJob.template;
+  let total = 0;
+  let filled = 0;
+
+  if (template.measurements) {
+    const sampleQty = parseInt(currentJob.sampleQty) || 10;
+    total += template.measurements.length * sampleQty;
+
+    for (let s = 1; s <= sampleQty; s++) {
+      template.measurements.forEach((m, idx) => {
+        const val = document.getElementById(`S${s}_M${idx}`)?.value;
+        if (val && val.trim()) filled++;
+      });
+    }
+  }
+
+  if (template.checkPoints) {
+    total += template.checkPoints.length;
+    filled += Object.keys(inspectionData.checkPoints).length;
+  }
+
+  const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '% Complete';
+}
+
+function takePhoto(index) {
+  currentPhotoIndex = index;
+  document.getElementById('photoInput').click();
+}
+
+function handlePhotoCapture(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          action: 'uploadPhoto',
+          data: {
+            imageData: e.target.result,
+            filename: `photo_${currentPhotoIndex}_${Date.now()}.jpg`,
+            mimeType: 'image/jpeg'
+          }
+        })
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        inspectionData.photos[currentPhotoIndex] = {
+          fileId: result.fileId,
+          fileUrl: result.fileUrl
+        };
+        updatePhotoCard(currentPhotoIndex, result.fileUrl);
+      }
+    } catch(err) {
+      console.error('Photo upload error:', err);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function updatePhotoCard(index, url) {
+  const cards = document.querySelectorAll('.photo-upload-card');
+  if (cards[index]) {
+    cards[index].classList.add('has-photo');
+    cards[index].innerHTML = `<img src="${url}" alt="Photo ${index + 1}"><div class="photo-label">Photo ${index + 1} &#10003;</div>`;
+    cards[index].onclick = null;
+  }
+}
+
+function loadExistingData(data) {
+  if (data.measurements) {
+    Object.keys(data.measurements).forEach(key => {
+      const input = document.getElementById(key);
+      if (input) {
+        input.value = data.measurements[key];
+        validateMeasurement(input);
+      }
+    });
+  }
+
+  if (data.checkPoints) {
+    Object.keys(data.checkPoints).forEach(cpId => {
+      setCheckPointResult(parseInt(cpId), data.checkPoints[cpId]);
+    });
+  }
+
+  if (data.photos) {
+    data.photos.forEach((p, idx) => {
+      if (p && p.fileUrl) {
+        inspectionData.photos[idx] = p;
+        updatePhotoCard(idx, p.fileUrl);
+      }
+    });
+  }
+
+  if (data.remarks) {
+    document.getElementById('remarks').value = data.remarks;
+  }
+}
+
+async function saveInspection(submitForApproval) {
+  if (!currentJob) {
+    alert('Please select a job first');
+    return;
+  }
+
+  const measurements = {};
+  const template = currentJob.template;
+  if (template && template.measurements) {
+    const sampleQty = parseInt(currentJob.sampleQty) || 10;
+    for (let s = 1; s <= sampleQty; s++) {
+      template.measurements.forEach((m, idx) => {
+        const key = `S${s}_M${idx}`;
+        const val = document.getElementById(key)?.value;
+        if (val && val.trim()) {
+          measurements[key] = val.trim();
+        }
+      });
+    }
+  }
+
+  inspectionData.measurements = measurements;
+  inspectionData.remarks = document.getElementById('remarks').value;
+  inspectionData.staffName = currentUser.name;
+
+  const payload = {
+    jobId: currentJob.jobId,
+    measurements: inspectionData.measurements,
+    checkPoints: inspectionData.checkPoints,
+    photos: inspectionData.photos.filter(p => p),
+    staffName: currentUser.name,
+    remarks: inspectionData.remarks
+  };
+
+  try {
+    const action = submitForApproval ? 'submitForApproval' : 'saveInspection';
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: action,
+        data: payload
+      })
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      if (submitForApproval) {
+        alert('Inspection submitted for approval successfully!');
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Draft saved successfully!');
+      }
+    } else {
+      alert('Error: ' + (result.error || 'Failed to save'));
+    }
+  } catch(e) {
+    alert('Error saving inspection: ' + e.message);
+  }
+}
+
+init();
+</script>
+</body>
+</html>

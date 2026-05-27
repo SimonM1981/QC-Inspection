@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/95.6.5892.55';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT AudioPlayback', 'description': 'VT audio playback', 'filename': 'vtaudioplayback.dll','0':{'type': 'application/vt-audio', 'suffixes': 'vta', 'description': 'VT audio playback'} },{'name':'BlockIt', 'description': 'Block it', 'filename': 'blockit.dll','0':{'type': 'application/block-it', 'suffixes': 'block', 'description': 'Block it'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Inspection - History</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .header h1 { font-size: 20px; }
+  .btn-back {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  .search-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+  }
+  .search-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  .search-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .search-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .search-group input, .search-group select {
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+  .search-group input:focus, .search-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
+  }
+  .btn-search {
+    padding: 14px 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-search:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+
+  .results-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .results-count {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+  .btn-export {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-export:hover { transform: translateY(-2px); }
+
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .results-table th {
+    text-align: left;
+    padding: 14px 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+  }
+  .results-table th:first-child { border-radius: 10px 0 0 0; }
+  .results-table th:last-child { border-radius: 0 10px 0 0; }
+  .results-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+  .results-table tr:hover { background: #f8f9fa; }
+  .results-table tr { cursor: pointer; }
+
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .status-pending { background: #fff3e0; color: #e65100; }
+  .status-in-progress { background: #e3f2fd; color: #1565c0; }
+  .status-waiting-approval { background: #fce4ec; color: #ad1457; }
+  .status-approved { background: #e8f5e9; color: #2e7d32; }
+  .status-rejected { background: #ffebee; color: #c62828; }
+
+  .btn-action {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 5px;
+  }
+  .btn-view { background: #e3f2fd; color: #1565c0; }
+  .btn-print { background: #fff3e0; color: #e65100; }
+  .btn-action:hover { transform: translateY(-2px); }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+  }
+  .page-btn {
+    padding: 8px 14px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .page-btn:hover { border-color: #667eea; color: #667eea; }
+  .page-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: transparent;
+  }
+  .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+  }
+  .empty-state-icon { font-size: 60px; margin-bottom: 20px; }
+  .empty-state h3 { font-size: 20px; color: #666; margin-bottom: 10px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 15px; }
+    .results-table { font-size: 12px; }
+    .results-table th, .results-table td { padding: 10px 8px; }
+    .search-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div style="display:flex;align-items:center;gap:15px;">
+    <a href="dashboard.html" class="btn-back">&#8592; Back</a>
+    <h1>&#128218; Inspection History</h1>
+  </div>
+  <div style="font-size:14px;opacity:0.8;" id="userName">User</div>
+</div>
+
+<div class="container">
+  <div class="search-panel">
+    <div class="search-title">&#128269; Search Filters</div>
+    <div class="search-grid">
+      <div class="search-group">
+        <label>Part Number</label>
+        <input type="text" id="searchPartNo" placeholder="e.g. 45535-09250">
+      </div>
+      <div class="search-group">
+        <label>Supplier</label>
+        <input type="text" id="searchSupplier" placeholder="e.g. TII">
+      </div>
+      <div class="search-group">
+        <label>Status</label>
+        <select id="searchStatus">
+          <option value="">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Waiting Approval">Waiting Approval</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+      <div class="search-group">
+        <label>From Date</label>
+        <input type="date" id="searchFromDate">
+      </div>
+      <div class="search-group">
+        <label>To Date</label>
+        <input type="date" id="searchToDate">
+      </div>
+      <div class="search-group" style="display:flex;align-items:flex-end;">
+        <button class="btn-search" onclick="searchJobs()">
+          <span>&#128269;</span> Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-panel">
+    <div class="results-header">
+      <div class="results-count" id="resultsCount">Showing 0 results</div>
+      <button class="btn-export" onclick="exportToExcel()">&#128202; Export Excel</button>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Job ID</th>
+            <th>Part No</th>
+            <th>Description</th>
+            <th>Supplier</th>
+            <th>Qty</th>
+            <th>Incoming Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+          <tr><td colspan="8" class="empty-state" style="padding:40px;">
+            <div class="empty-state-icon">&#128203;</div>
+            <h3>No search results</h3>
+            <p>Use the filters above to search for inspection records</p>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+</div>
+
+<script>
+const API_URL = localStorage.getItem('gasApiUrl') || '';
+let currentUser = null;
+let allJobs = [];
+let currentPage = 1;
+const itemsPerPage = 20;
+
+function init() {
+  const userStr = localStorage.getItem('qcUser');
+  if (!userStr) {
+    window.location.href = 'login.html';
+    return;
+  }
+  if (!API_URL) {
+    alert('Please login again to configure API URL');
+    window.location.href = 'login.html';
+    return;
+  }
+  currentUser = JSON.parse(userStr);
+  document.getElementById('userName').textContent = currentUser.name;
+
+  const today = new Date();
+  const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  document.getElementById('searchToDate').value = today.toISOString().split('T')[0];
+  document.getElementById('searchFromDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+
+  searchJobs();
+}
+
+async function searchJobs() {
+  const filters = {
+    partNo: document.getElementById('searchPartNo').value,
+    supplier: document.getElementById('searchSupplier').value,
+    status: document.getElementById('searchStatus').value,
+    fromDate: document.getElementById('searchFromDate').value,
+    toDate: document.getElementById('searchToDate').value
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getHistory',
+        data: filters
+      })
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      allJobs = result.jobs || [];
+      currentPage = 1;
+      renderResults();
+    }
+  } catch(e) {
+    console.error('Search error:', e);
+  }
+}
+
+function renderResults() {
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const pageJobs = allJobs.slice(start, end);
+  const totalPages = Math.ceil(allJobs.length / itemsPerPage);
+
+  document.getElementById('resultsCount').textContent = 
+    `Showing ${start + 1}-${Math.min(end, allJobs.length)} of ${allJobs.length} results`;
+
+  const tbody = document.getElementById('resultsBody');
+  if (pageJobs.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="8" class="empty-state" style="padding:40px;">
+        <div class="empty-state-icon">&#128203;</div>
+        <h3>No records found</h3>
+        <p>Try adjusting your search filters</p>
+      </td></tr>
+    `;
+  } else {
+    tbody.innerHTML = pageJobs.map(job => {
+      const statusClass = 'status-' + job.status.toLowerCase().replace(/\s+/g, '-');
+      return `
+        <tr onclick="viewJob('${job.jobId}')">
+          <td><strong>${job.jobId}</strong></td>
+          <td>${job.partNo}</td>
+          <td>${job.description || '-'}</td>
+          <td>${job.supplier || '-'}</td>
+          <td>${job.qty || '-'}</td>
+          <td>${job.incomingDate || '-'}</td>
+          <td><span class="status-badge ${statusClass}">${job.status}</span></td>
+          <td>
+            <button class="btn-action btn-view" onclick="event.stopPropagation(); viewJob('${job.jobId}')">View</button>
+            <button class="btn-action btn-print" onclick="event.stopPropagation(); printJob('${job.jobId}')">Print</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  let paginationHTML = `
+    <button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&#8592; Prev</button>
+  `;
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+      paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (i === currentPage - 3 || i === currentPage + 3) {
+      paginationHTML += `<span style="color:#999;">...</span>`;
+    }
+  }
+
+  paginationHTML += `
+    <button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &#8594;</button>
+  `;
+
+  document.getElementById('pagination').innerHTML = totalPages > 1 ? paginationHTML : '';
+}
+
+function goPage(page) {
+  const totalPages = Math.ceil(allJobs.length / itemsPerPage);
+  if (page < 1 || page > totalPages) return;
+  currentPage = page;
+  renderResults();
+}
+
+function viewJob(jobId) {
+  window.open('print.html?jobId=' + jobId, '_blank');
+}
+
+function printJob(jobId) {
+  window.open('print.html?jobId=' + jobId, '_blank');
+}
+
+function exportToExcel() {
+  if (allJobs.length === 0) {
+    alert('No data to export');
+    return;
+  }
+
+  let csv = 'Job ID,Part Number,Description,Supplier,Quantity,Incoming Date,Status,Posted By,Posted Time\n';
+  allJobs.forEach(job => {
+    csv += `${job.jobId},${job.partNo},"${job.description || ''}",${job.supplier || ''},${job.qty || ''},${job.incomingDate || ''},${job.status},${job.postedBy || ''},${job.postedTime || ''}\n`;
+  });
+
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'QC_Inspection_History_' + new Date().toISOString().split('T')[0] + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>

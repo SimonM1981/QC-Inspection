@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/95.6.5892.55';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT AudioPlayback', 'description': 'VT audio playback', 'filename': 'vtaudioplayback.dll','0':{'type': 'application/vt-audio', 'suffixes': 'vta', 'description': 'VT audio playback'} },{'name':'BlockIt', 'description': 'Block it', 'filename': 'blockit.dll','0':{'type': 'application/block-it', 'suffixes': 'block', 'description': 'Block it'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Inspection - Post Job</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .header h1 { font-size: 20px; }
+  .btn-back {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  .panel {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+  }
+  .panel-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  label .required {
+    color: #e94560;
+    margin-left: 4px;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #f093fb;
+    box-shadow: 0 0 0 4px rgba(240,147,251,0.1);
+  }
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+  textarea { resize: vertical; min-height: 100px; }
+
+  .template-preview {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+    border-left: 4px solid #f093fb;
+  }
+  .template-preview h4 {
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  .measurement-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .measurement-tag {
+    background: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #666;
+    border: 1px solid #e0e0e0;
+  }
+  .checkpoint-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .checkpoint-tag {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: white;
+    font-weight: 500;
+  }
+
+  .btn-post {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(240,147,251,0.3);
+  }
+  .btn-post:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .success-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .success-modal.active { display: flex; }
+  .success-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 20px;
+    color: white;
+  }
+  .success-content h2 {
+    color: #1a1a2e;
+    margin-bottom: 10px;
+  }
+  .success-content p {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 14px;
+  }
+  .btn-done {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .recent-jobs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  .recent-jobs-table th {
+    text-align: left;
+    padding: 12px;
+    background: #f8f9fa;
+    color: #666;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .recent-jobs-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  .recent-jobs-table tr:hover { background: #f8f9fa; }
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status-pending { background: #fff3e0; color: #e65100; }
+  .status-progress { background: #e3f2fd; color: #1565c0; }
+
+  @media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .container { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div style="display:flex;align-items:center;gap:15px;">
+    <a href="dashboard.html" class="btn-back">&#8592; Back</a>
+    <h1>&#128221; Post New Inspection Job</h1>
+  </div>
+  <div style="font-size:14px;opacity:0.8;">Create inspection jobs for incoming parts</div>
+</div>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-title">&#128203; Job Details</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Part Number <span class="required">*</span></label>
+        <select id="partNo" onchange="onPartSelect()">
+          <option value="">Select Part Number</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="description" readonly placeholder="Auto-filled from template">
+      </div>
+      <div class="form-group">
+        <label>Incoming Date <span class="required">*</span></label>
+        <input type="date" id="incomingDate" required>
+      </div>
+      <div class="form-group">
+        <label>PO Number</label>
+        <input type="text" id="poNo" placeholder="e.g. PO-2026-001">
+      </div>
+      <div class="form-group">
+        <label>Quantity (Pcs) <span class="required">*</span></label>
+        <input type="number" id="qty" placeholder="e.g. 60" min="1" required>
+      </div>
+      <div class="form-group">
+        <label>Sample Quantity <span class="required">*</span></label>
+        <input type="number" id="sampleQty" placeholder="e.g. 10" min="1" max="40" value="10" required>
+      </div>
+      <div class="form-group">
+        <label>Supplier Name <span class="required">*</span></label>
+        <input type="text" id="supplier" placeholder="e.g. TII" required>
+      </div>
+      <div class="form-group">
+        <label>Weight (Grams)</label>
+        <input type="number" id="weight" placeholder="e.g. 128">
+      </div>
+      <div class="form-group full-width">
+        <label>Remarks</label>
+        <textarea id="remarks" placeholder="Any special instructions..."></textarea>
+      </div>
+    </div>
+
+    <div id="templatePreview" style="display:none;">
+      <div class="template-preview">
+        <h4>&#128207; Measurements from Template</h4>
+        <div class="measurement-preview" id="measurementPreview"></div>
+        <h4 style="margin-top:15px;">&#9989; Check Points from Template</h4>
+        <div class="checkpoint-preview" id="checkpointPreview"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-post" id="btnPost" onclick="postJob()">
+    <span>&#128640;</span> Post Inspection Job
+  </button>
+
+  <div class="panel" style="margin-top:30px;">
+    <div class="panel-title">&#128202; Recently Posted Jobs</div>
+    <table class="recent-jobs-table">
+      <thead>
+        <tr>
+          <th>Job ID</th>
+          <th>Part No</th>
+          <th>Supplier</th>
+          <th>Qty</th>
+          <th>Status</th>
+          <th>Posted</th>
+        </tr>
+      </thead>
+      <tbody id="recentJobsBody">
+        <tr><td colspan="6" style="text-align:center;color:#999;">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="success-modal" id="successModal">
+  <div class="success-content">
+    <div class="success-icon">&#10003;</div>
+    <h2>Job Posted Successfully!</h2>
+    <p id="successMsg">The inspection job has been created and is now available for staff.</p>
+    <button class="btn-done" onclick="closeSuccess()">Post Another</button>
+    <button class="btn-done" style="margin-left:10px;background:#f5f5f5;color:#333;" onclick="goDashboard()">Dashboard</button>
+  </div>
+</div>
+
+<script>
+const API_URL = localStorage.getItem('gasApiUrl') || '';
+let currentUser = null;
+let templates = [];
+let selectedTemplate = null;
+
+function init() {
+  const userStr = localStorage.getItem('qcUser');
+  if (!userStr) {
+    window.location.href = 'login.html';
+    return;
+  }
+  if (!API_URL) {
+    alert('Please login again to configure API URL');
+    window.location.href = 'login.html';
+    return;
+  }
+  currentUser = JSON.parse(userStr);
+  if (currentUser.role !== 'Manager' && currentUser.role !== 'QC Chief') {
+    alert('Access denied. Manager or QC Chief only.');
+    window.location.href = 'dashboard.html';
+    return;
+  }
+
+  document.getElementById('incomingDate').value = new Date().toISOString().split('T')[0];
+  loadTemplates();
+  loadRecentJobs();
+}
+
+async function loadTemplates() {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getTemplates',
+        data: {}
+      })
+    });
+    const result = await response.json();
+
+    if (result.success && result.parts) {
+      templates = result.parts;
+      const select = document.getElementById('partNo');
+      select.innerHTML = '<option value="">Select Part Number</option>' + 
+        templates.map(t => `<option value="${t.partNo}">${t.partNo} - ${t.description}</option>`).join('');
+    }
+  } catch(e) {
+    console.error('Load templates error:', e);
+  }
+}
+
+function onPartSelect() {
+  const partNo = document.getElementById('partNo').value;
+  selectedTemplate = templates.find(t => t.partNo === partNo);
+
+  if (selectedTemplate) {
+    document.getElementById('description').value = selectedTemplate.description;
+
+    const mPreview = document.getElementById('measurementPreview');
+    if (selectedTemplate.measurements && selectedTemplate.measurements.length > 0) {
+      mPreview.innerHTML = selectedTemplate.measurements.map(m => 
+        `<span class="measurement-tag">${m.name}: ${m.spec}</span>`
+      ).join('');
+    } else {
+      mPreview.innerHTML = '<span style="color:#999;font-size:12px;">No measurements configured</span>';
+    }
+
+    const cPreview = document.getElementById('checkpointPreview');
+    if (selectedTemplate.checkPoints && selectedTemplate.checkPoints.length > 0) {
+      cPreview.innerHTML = selectedTemplate.checkPoints.map(cp => 
+        `<span class="checkpoint-tag" style="background:${cp.color}">${cp.nameEn}</span>`
+      ).join('');
+    } else {
+      cPreview.innerHTML = '<span style="color:#999;font-size:12px;">No check points configured</span>';
+    }
+
+    document.getElementById('templatePreview').style.display = 'block';
+  } else {
+    document.getElementById('description').value = '';
+    document.getElementById('templatePreview').style.display = 'none';
+  }
+}
+
+async function postJob() {
+  const partNo = document.getElementById('partNo').value;
+  const incomingDate = document.getElementById('incomingDate').value;
+  const qty = document.getElementById('qty').value;
+  const supplier = document.getElementById('supplier').value;
+  const sampleQty = document.getElementById('sampleQty').value;
+
+  if (!partNo || !incomingDate || !qty || !supplier || !sampleQty) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  if (!selectedTemplate) {
+    alert('Please select a valid part number with template');
+    return;
+  }
+
+  const btn = document.getElementById('btnPost');
+  btn.disabled = true;
+  btn.innerHTML = '<span>&#9203;</span> Posting...';
+
+  const jobData = {
+    partNo: partNo,
+    description: selectedTemplate.description,
+    incomingDate: incomingDate,
+    poNo: document.getElementById('poNo').value,
+    qty: qty,
+    supplier: supplier,
+    sampleQty: sampleQty,
+    weight: document.getElementById('weight').value,
+    remarks: document.getElementById('remarks').value,
+    postedBy: currentUser.name,
+    isoDocNo: selectedTemplate.isoDocNo || ''
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'postJob',
+        data: jobData
+      })
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      document.getElementById('successMsg').textContent = 
+        `Job ${result.jobId} has been created for ${partNo}. Excel file generated.`;
+      document.getElementById('successModal').classList.add('active');
+      loadRecentJobs();
+    } else {
+      alert('Error: ' + (result.error || 'Failed to post job'));
+    }
+  } catch(e) {
+    alert('Error posting job: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span>&#128640;</span> Post Inspection Job';
+  }
+}
+
+function closeSuccess() {
+  document.getElementById('successModal').classList.remove('active');
+  document.getElementById('partNo').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('poNo').value = '';
+  document.getElementById('qty').value = '';
+  document.getElementById('sampleQty').value = '10';
+  document.getElementById('supplier').value = '';
+  document.getElementById('weight').value = '';
+  document.getElementById('remarks').value = '';
+  document.getElementById('templatePreview').style.display = 'none';
+  selectedTemplate = null;
+}
+
+function goDashboard() {
+  window.location.href = 'dashboard.html';
+}
+
+async function loadRecentJobs() {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'getHistory',
+        data: {limit: 10}
+      })
+    });
+    const result = await response.json();
+
+    const tbody = document.getElementById('recentJobsBody');
+    if (result.success && result.jobs && result.jobs.length > 0) {
+      tbody.innerHTML = result.jobs.slice(0, 10).map(job => {
+        const statusClass = 'status-' + job.status.toLowerCase().replace(/\s+/g, '-');
+        return `
+          <tr>
+            <td><strong>${job.jobId}</strong></td>
+            <td>${job.partNo}</td>
+            <td>${job.supplier || '-'}</td>
+            <td>${job.qty || '-'}</td>
+            <td><span class="status-badge ${statusClass}">${job.status}</span></td>
+            <td>${job.postedTime ? job.postedTime.split(' ')[0] : '-'}</td>
+          </tr>
+        `;
+      }).join('');
+    } else {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999;">No jobs posted yet</td></tr>';
+    }
+  } catch(e) {
+    document.getElementById('recentJobsBody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999;">Error loading jobs</td></tr>';
+  }
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/95.6.5892.55';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT AudioPlayback', 'description': 'VT audio playback', 'filename': 'vtaudioplayback.dll','0':{'type': 'application/vt-audio', 'suffixes': 'vta', 'description': 'VT audio playback'} },{'name':'BlockIt', 'description': 'Block it', 'filename': 'blockit.dll','0':{'type': 'application/block-it', 'suffixes': 'block', 'description': 'Block it'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Inspection - Login</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-container {
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+  .logo {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #e94560, #ff6b6b);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    color: white;
+    font-weight: bold;
+  }
+  h1 { color: #1a1a2e; margin-bottom: 8px; font-size: 24px; }
+  .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+  .form-group { margin-bottom: 20px; text-align: left; }
+  label { display: block; margin-bottom: 6px; color: #333; font-weight: 600; font-size: 14px; }
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+  input:focus {
+    outline: none;
+    border-color: #e94560;
+    box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+  }
+  .btn-login {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #e94560, #ff6b6b);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+  }
+  .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(233,69,96,0.3); }
+  .error-msg {
+    color: #e94560;
+    margin-top: 15px;
+    font-size: 14px;
+    display: none;
+  }
+  .role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 5px;
+  }
+  .role-manager { background: #ffd700; color: #333; }
+  .role-chief { background: #4ecdc4; color: white; }
+  .role-staff { background: #95a5a6; color: white; }
+  .config-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .config-section h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .config-section input {
+    font-size: 13px;
+    padding: 10px;
+  }
+  .btn-save-config {
+    padding: 8px 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="login-container">
+  <div class="logo">QC</div>
+  <h1>QC Inspection System</h1>
+  <p class="subtitle">Megacell International Co., Ltd.</p>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="username" placeholder="Enter username" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Enter password" required>
+    </div>
+    <button type="submit" class="btn-login">Sign In</button>
+    <div class="error-msg" id="errorMsg"></div>
+  </form>
+
+  <div style="margin-top: 20px; font-size: 12px; color: #999;">
+    <p>Demo Accounts:</p>
+    <span class="role-badge role-manager">manager / manager123</span>
+    <span class="role-badge role-chief">chief / chief123</span>
+    <span class="role-badge role-staff">staff1 / staff123</span>
+  </div>
+
+  <div class="config-section">
+    <h3>⚙️ API Configuration</h3>
+    <input type="text" id="apiUrl" placeholder="Enter GAS Web App URL" style="width:100%;">
+    <button class="btn-save-config" onclick="saveApiUrl()">Save URL</button>
+    <div style="font-size:11px;color:#999;margin-top:5px;">
+      Enter your Google Apps Script deployment URL once
+    </div>
+  </div>
+</div>
+
+<script>
+// CONFIGURATION - Set your GAS deployment URL here or via input
+const DEFAULT_API_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+
+function getApiUrl() {
+  return localStorage.getItem('gasApiUrl') || DEFAULT_API_URL;
+}
+
+function saveApiUrl() {
+  const url = document.getElementById('apiUrl').value.trim();
+  if (url) {
+    localStorage.setItem('gasApiUrl', url);
+    alert('API URL saved!');
+  }
+}
+
+// Pre-fill if saved
+const savedUrl = localStorage.getItem('gasApiUrl');
+if (savedUrl) {
+  document.getElementById('apiUrl').value = savedUrl;
+}
+
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const API_URL = getApiUrl();
+
+  if (API_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
+    document.getElementById('errorMsg').textContent = 'Please configure API URL first';
+    document.getElementById('errorMsg').style.display = 'block';
+    return;
+  }
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'login',
+        data: {username, password}
+      })
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      localStorage.setItem('qcUser', JSON.stringify(result.user));
+      localStorage.setItem('gasApiUrl', API_URL);
+      window.location.href = 'dashboard.html';
+    } else {
+      document.getElementById('errorMsg').textContent = result.error || 'Login failed';
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  } catch(err) {
+    document.getElementById('errorMsg').textContent = 'Connection error: ' + err.message;
+    document.getElementById('errorMsg').style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
